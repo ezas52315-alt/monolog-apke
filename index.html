@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Д. Исабеков «Әпке» - Интерактивті Сабақ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f0505;
+            color: #e2e2e2;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Theater Typography */
+        .theater-title {
+            font-family: 'Playfair Display', serif;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        /* Realistic Curtain Texture */
+        .curtain-texture {
+            background-color: #4a0404;
+            background-image: repeating-linear-gradient(
+                90deg,
+                #3a0303,
+                #3a0303 10px,
+                #5e0505 20px,
+                #3a0303 40px
+            );
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        
+        /* Shadow overlay for depth */
+        .curtain-shadow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 20%, transparent 80%, rgba(0,0,0,0.6));
+            pointer-events: none;
+        }
+
+        /* Gold decoration */
+        .gold-trim {
+            border: 3px solid #FFD700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Buttons & Inputs */
+        .btn-theater {
+            background: linear-gradient(to bottom, #8B0000, #500000);
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-theater:hover {
+            background: linear-gradient(to bottom, #A52A2A, #800000);
+            box-shadow: 0 0 15px #FFD700;
+            transform: scale(1.02);
+        }
+
+        /* External Link Button Style */
+        .btn-external-link {
+            background: #b91c1c; /* Red */
+            color: white;
+            border: 2px solid #FFD700;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+        .btn-external-link:hover {
+            background: #991b1b;
+            transform: translateY(-2px);
+        }
+
+        .paper-input {
+            background-color: #fdfbf7;
+            color: #1a1a1a;
+            border: 1px solid #c0a060;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Stage Floor Effect */
+        .stage-floor {
+            background: radial-gradient(ellipse at center, #3d1e1e 0%, #1a0505 100%);
+            border-top: 4px solid #2a0505;
+        }
+
+        .golden-border {
+            border: 1px solid #FFD700;
+            background-color: rgba(20, 5, 5, 0.9);
+        }
+
+        .text-shadow {
+            text-shadow: 1px 1px 2px black;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center">
+
+    <!-- Main Content Area -->
+    <main class="w-full max-w-5xl z-10 p-4 md:p-8 my-4 relative">
+        
+        <!-- HEADER -->
+        <div class="text-center mb-8 animate-fade-in opacity-0">
+            <h1 class="text-3xl md:text-5xl theater-title mb-4">«Әпке»</h1>
+            <p class="text-lg md:text-xl text-gray-300 italic mb-4 max-w-3xl mx-auto">
+                Д. Исабековтің «Әпке» драмасындағы басты кейіпкер – Қамажайдың тағдыры мен оның бүгінгі қоғамдағы орны туралы ой бөлісу.
+            </p>
+            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto"></div>
+        </div>
+
+        <!-- THEATER STAGE VIDEO SECTION -->
+        <div class="w-full mb-10 overflow-hidden shadow-2xl relative rounded-lg border-t-4 border-yellow-900">
+            <!-- Stage Top decoration -->
+            <div class="h-4 w-full bg-[#2a0505] border-b border-yellow-800"></div>
+            
+            <div class="flex h-[500px] md:h-[600px] w-full relative bg-black justify-center">
+                
+                <!-- Left Curtain -->
+                <div class="flex-1 curtain-texture relative z-10 hidden md:block">
+                    <div class="curtain-shadow-overlay"></div>
+                    <!-- Decorative rope/tie -->
+                    <div class="absolute top-1/2 left-4 w-full h-1 bg-black opacity-20 transform -rotate-12"></div>
+                </div>
+
+                <!-- Video Container (Center Stage) -->
+                <!-- Vertical aspect ratio container for phone-style video -->
+                <div id="videoContainer" class="relative z-20 h-full w-full md:w-[350px] flex-shrink-0 bg-black gold-trim mx-auto md:mx-0 group flex flex-col">
+                    
+                    <!-- 1. PERMANENT IMAGE LAYER (Always Visible Frame/Overlay) -->
+                    <!-- z-40 ensures it stays on top of the video (z-10) -->
+                    <!-- pointer-events-none ensures clicks pass through to the play button or video controls -->
+                    <img 
+                        src="https://drive.google.com/uc?export=view&id=1m412sfnM_pZ3oDFrJEj1bRvuBWp93sLa" 
+                        class="absolute inset-0 z-40 w-full h-full object-cover pointer-events-none" 
+                        alt="Бейнематериал жақтауы">
+
+                    <!-- 2. PLAY BUTTON OVERLAY (Disappears on click) -->
+                    <!-- z-50 ensures the button is clickable and above the frame -->
+                    <div id="videoStartOverlay" class="absolute inset-0 z-50 flex flex-col items-center justify-center cursor-pointer group bg-black/40 hover:bg-black/30 transition-colors" onclick="playVideo()">
+                        <div class="w-20 h-20 bg-red-900/90 rounded-full flex items-center justify-center border-2 border-yellow-500 shadow-[0_0_30px_rgba(255,215,0,0.8)] group-hover:scale-110 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-yellow-400 ml-1" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                        <p class="mt-4 text-yellow-200 font-serif text-sm tracking-widest uppercase text-shadow font-bold bg-black/50 px-3 py-1 rounded">Бейнематериалды қосу</p>
+                    </div>
+
+                    <!-- 3. STANDARD GOOGLE DRIVE PREVIEW IFRAME -->
+                    <!-- Positioned at the bottom (z-10) -->
+                    <iframe 
+                        id="videoIframe"
+                        src="https://drive.google.com/file/d/14EYGfHcz7YrtPWHbM4hC1D1xD3ik1Qul/preview"
+                        class="w-full h-full border-0 relative z-10"
+                        allow="autoplay; fullscreen"
+                        title="Қамажайдың монологі">
+                    </iframe>
+
+                </div>
+
+                <!-- Right Curtain -->
+                <div class="flex-1 curtain-texture relative z-10 hidden md:block">
+                    <div class="curtain-shadow-overlay"></div>
+                </div>
+            </div>
+
+            <!-- Stage Footer with LARGE BACKUP BUTTON -->
+            <div class="h-auto py-4 w-full stage-floor flex flex-col items-center justify-center gap-2">
+                <span class="text-yellow-900/50 text-sm font-serif tracking-[0.5em] uppercase mb-1">Сахна</span>
+                
+                <!-- Big Red Button for guaranteed access with new link -->
+                <a href="https://drive.google.com/file/d/14EYGfHcz7YrtPWHbM4hC1D1xD3ik1Qul/view?usp=sharing" target="_blank" class="btn-external-link px-6 py-3 rounded text-sm md:text-base flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                    </svg>
+                    Видеоны көру (Егер ашылмаса басыңыз)
+                </a>
+                <p class="text-gray-500 text-xs italic">Бейнематериал жаңа терезеде ашылады</p>
+            </div>
+        </div>
+
+        <!-- READING SECTION (DOCS) -->
+        <div class="w-full mb-10 animate-fade-in" style="animation-delay: 0.5s;">
+            <div class="golden-border p-6 rounded-lg bg-[#0a0505] shadow-2xl relative">
+                <!-- Decorative corner -->
+                <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-yellow-500"></div>
+                <div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-yellow-500"></div>
+                
+                <h2 class="text-2xl theater-title mb-6 text-center">Қамажайдың монологін оқып шық</h2>
+                
+                <div class="w-full h-[600px] bg-white rounded-lg overflow-hidden border-2 border-yellow-700/50 shadow-inner">
+                    <iframe 
+                        src="https://docs.google.com/document/d/1Kyigpyvdtt5Zi-F6cZGuoQG32K0hhc40AFxLb1uIHu4/preview"
+                        class="w-full h-full border-0"
+                        title="Қамажайдың монологі мәтіні">
+                    </iframe>
+                </div>
+                
+                <!-- Decorative corner bottom -->
+                <div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-yellow-500"></div>
+                <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-yellow-500"></div>
+            </div>
+        </div>
+
+        <!-- STEP 1: STUDENT NAME -->
+        <div id="section-name" class="golden-border p-8 rounded-lg mb-8 text-center transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+            <h3 class="text-2xl theater-title mb-6">Көрерменді тіркеу</h3>
+            <label class="block text-lg mb-3 text-yellow-500/80 font-serif">Оқушының аты-жөні:</label>
+            <input type="text" id="studentName" class="paper-input text-xl p-3 rounded w-full max-w-md mx-auto block mb-6 focus:outline-none focus:ring-2 focus:ring-yellow-600 text-center" placeholder="Аты-жөніңіз...">
+            <button onclick="submitName()" class="btn-theater px-12 py-3 rounded text-lg font-bold cursor-pointer inline-block">
+                Бастау
+            </button>
+            <p id="nameError" class="text-red-500 mt-2 hidden">Өтінемін, аты-жөніңізді енгізіңіз.</p>
+        </div>
+
+        <!-- STEP 2: CONTEXT & TOPIC SELECTION -->
+        <div id="section-topics" class="hidden opacity-0 transition-opacity duration-700">
+            <div class="bg-gradient-to-r from-[#2a0505] to-black p-6 rounded-lg border-l-4 border-yellow-600 mb-8 shadow-lg">
+                <h3 class="text-3xl text-yellow-500 font-serif mb-4" id="greetingText"></h3>
+                <p class="text-gray-300 leading-relaxed text-lg font-light italic">
+                    «...Сен жаңа ғана Қамажайдың атынан айтылған тебіреністі монологпен таныстың. Ол өзінің жеке бақытынан, сүйген жігіті Қабеннен бас тартып, өмірін бауырларына арнады. Оның мақсаты – <span class="text-yellow-200">«бауырларым бір-бірінен ажырамасын, әулеттің оты сөнбесін»</span> деген ізгі ниет еді...»
+                </p>
+                <div class="mt-6 p-4 border border-yellow-900/50 rounded bg-black/20">
+                    <p class="text-yellow-100 font-serif text-center">
+                        Енді осы монолог пен шығарма желісіне сүйене отырып, төмендегі екі тақырыптың бірін таңдап, эссе жазуың керек.
+                    </p>
+                </div>
+            </div>
+
+            <div class="golden-border p-6 rounded-lg mb-8">
+                <h2 class="text-2xl theater-title mb-6 text-center border-b border-gray-800 pb-4">Тақырып таңдау</h2>
+                
+                <div class="space-y-4">
+                    <!-- Topic 1 -->
+                    <label class="block cursor-pointer group relative overflow-hidden rounded transition-transform hover:scale-[1.01]">
+                        <input type="radio" name="essayTopic" value="1" class="hidden peer" onchange="topicSelected()">
+                        <div class="absolute inset-0 bg-red-900/20 group-hover:bg-red-900/40 transition-colors"></div>
+                        <div class="p-5 border border-gray-700 rounded bg-[#1a0a0a] relative z-10 peer-checked:border-yellow-500 peer-checked:bg-[#2a0a0a]">
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full border-2 border-gray-500 mr-4 peer-checked:border-yellow-500 peer-checked:bg-yellow-500 flex-shrink-0"></div>
+                                <div>
+                                    <span class="font-bold text-yellow-100 text-xl block mb-2">1-тақырып: «Қамажайдың құрбандығы: Ақталған үміт пе, әлде зая кеткен ғұмыр ма?»</span>
+                                    <p class="text-sm text-gray-400">
+                                        <span class="text-yellow-600 font-bold uppercase text-xs">Нұсқау:</span> Қамажайдың өз бақытынан бас тартуы дұрыс болды ма? Оның інілері Омар, Темірбек және сіңлісі Нәзилә осы құрбандықты бағалай алды ма?
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+
+                    <!-- Topic 2 -->
+                    <label class="block cursor-pointer group relative overflow-hidden rounded transition-transform hover:scale-[1.01]">
+                        <input type="radio" name="essayTopic" value="2" class="hidden peer" onchange="topicSelected()">
+                        <div class="absolute inset-0 bg-red-900/20 group-hover:bg-red-900/40 transition-colors"></div>
+                        <div class="p-5 border border-gray-700 rounded bg-[#1a0a0a] relative z-10 peer-checked:border-yellow-500 peer-checked:bg-[#2a0a0a]">
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full border-2 border-gray-500 mr-4 peer-checked:border-yellow-500 peer-checked:bg-yellow-500 flex-shrink-0"></div>
+                                <div>
+                                    <span class="font-bold text-yellow-100 text-xl block mb-2">2-тақырып: «Бүгінгі күннің Қамажайы: Заманауи қоғамдағы бауырмалдық қандай болуы керек?»</span>
+                                    <p class="text-sm text-gray-400">
+                                        <span class="text-yellow-600 font-bold uppercase text-xs">Нұсқау:</span> Монологтағы «Егер бәріміз тек өзімізді ойласақ, кім бізге қорған болады?» деген сөзді қазіргі заманмен байланыстыр.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: RUBRIC & WRITING AREA -->
+        <div id="section-writing" class="hidden opacity-0 transition-opacity duration-700">
+            
+            <!-- Rubric Table -->
+            <div class="mb-8 overflow-x-auto bg-[#1a0a0a] p-4 rounded border border-gray-800">
+                <h3 class="text-xl theater-title mb-4">Бағалау критерийлері (Рубрика)</h3>
+                <table class="w-full text-left border-collapse text-sm md:text-base">
+                    <thead class="bg-[#3a0505] text-yellow-400">
+                        <tr>
+                            <th class="p-3 border border-gray-700">Критерий</th>
+                            <th class="p-3 border border-gray-700 text-center">Ұпай</th>
+                            <th class="p-3 border border-gray-700">Талаптар</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300 divide-y divide-gray-800">
+                        <tr>
+                            <td class="p-3 border-r border-gray-800 font-semibold text-yellow-100/80">Мазмұн</td>
+                            <td class="p-3 border-r border-gray-800 text-center font-bold">3</td>
+                            <td class="p-3">Тақырып толық ашылған, идея нақты.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border-r border-gray-800 font-semibold text-yellow-100/80">Дәлелдеу</td>
+                            <td class="p-3 border-r border-gray-800 text-center font-bold">3</td>
+                            <td class="p-3">Шығармадан нақты мысалдар келтірілген.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border-r border-gray-800 font-semibold text-yellow-100/80">Құрылым</td>
+                            <td class="p-3 border-r border-gray-800 text-center font-bold">2</td>
+                            <td class="p-3">Кіріспе, негізгі бөлім, қорытынды.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 border-r border-gray-800 font-semibold text-yellow-100/80">Стиль</td>
+                            <td class="p-3 border-r border-gray-800 text-center font-bold">2</td>
+                            <td class="p-3">Тіл тазалығы, қатесіз жазу.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Writing Area -->
+            <div class="golden-border p-6 rounded-lg bg-[#150505] relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-2 opacity-10 pointer-events-none">
+                    <svg width="100" height="100" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+                </div>
+
+                <h2 class="text-2xl theater-title mb-2">4-қадам. Эссе жазу алаңы</h2>
+                <p id="systemPrompt" class="text-green-500 font-mono mb-4 text-sm bg-black/30 p-2 rounded border-l-2 border-green-500 inline-block"></p>
+                
+                <textarea id="essayContent" rows="10" class="paper-input w-full p-6 text-lg rounded shadow-inner resize-y focus:outline-none focus:ring-2 focus:ring-yellow-600 leading-relaxed" placeholder="Ойын осында жаз..."></textarea>
+                
+                <div class="flex justify-between items-center mt-3 text-sm font-medium">
+                    <span id="wordCount" class="px-3 py-1 rounded bg-black/40">Сөз саны: 0</span>
+                    <span class="text-gray-400">Талап: 100-150 сөз</span>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button onclick="submitEssay()" class="btn-theater px-16 py-4 rounded text-xl font-bold shadow-xl hover:shadow-yellow-900/50">
+                        Жіберу
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEEDBACK SECTION -->
+        <div id="section-feedback" class="hidden opacity-0 transition-opacity duration-700 mt-8">
+            <div class="golden-border p-8 rounded-lg bg-[#0a0202] border-t-4 border-t-yellow-500 shadow-2xl">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl theater-title mb-2">Спектакль аяқталды</h2>
+                    <div class="w-16 h-1 bg-yellow-600 mx-auto"></div>
+                </div>
+                
+                <div id="feedbackContent" class="space-y-6 text-gray-200">
+                    <!-- Dynamic Feedback -->
+                </div>
+
+                <div class="mt-10 pt-8 border-t border-gray-800 text-center relative">
+                    <div class="absolute top-[-16px] left-1/2 transform -translate-x-1/2 bg-[#0a0202] px-4 text-gray-500 uppercase text-xs tracking-widest">Нәтиже</div>
+                    <div id="finalScore" class="text-7xl font-serif text-yellow-500 font-bold drop-shadow-[0_2px_4px_rgba(255,215,0,0.3)]"></div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <button onclick="location.reload()" class="text-gray-500 hover:text-yellow-500 transition-colors text-sm border-b border-gray-700 hover:border-yellow-500 pb-1">Басынан бастау</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // VIDEO PLAY FUNCTION
+        window.playVideo = function() {
+            const overlay = document.getElementById('videoStartOverlay');
+            
+            // Fade out the overlay only, keep the image
+            overlay.style.transition = 'opacity 0.5s ease-out';
+            overlay.style.opacity = '0';
+            
+            // Remove from flow after fade
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        }
+
+        // --- GLOBAL FUNCTIONS FOR HTML HANDLERS ---
+        let studentName = "";
+        let selectedTopic = 0;
+
+        window.submitName = function() {
+            const input = document.getElementById('studentName');
+            const errorMsg = document.getElementById('nameError');
+            
+            if (input.value.trim() === "") {
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+            
+            errorMsg.classList.add('hidden');
+            studentName = input.value.trim();
+            
+            input.disabled = true;
+            document.querySelector('#section-name button').classList.add('opacity-50', 'cursor-not-allowed');
+            
+            const topicSection = document.getElementById('section-topics');
+            topicSection.classList.remove('hidden');
+            void topicSection.offsetWidth; 
+            topicSection.classList.remove('opacity-0');
+
+            document.getElementById('greetingText').innerText = `Қош келдің, ${studentName}!`;
+            topicSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        window.topicSelected = function() {
+            const radios = document.getElementsByName('essayTopic');
+            for (let radio of radios) {
+                if (radio.checked) {
+                    selectedTopic = parseInt(radio.value);
+                    break;
+                }
+            }
+
+            const writingSection = document.getElementById('section-writing');
+            writingSection.classList.remove('hidden');
+            void writingSection.offsetWidth;
+            writingSection.classList.remove('opacity-0');
+            
+            document.getElementById('systemPrompt').innerText = `Жүйе: Тамаша таңдау, ${studentName}!`;
+            writingSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        document.getElementById('essayContent').addEventListener('input', function() {
+            const text = this.value.trim();
+            const words = text === "" ? 0 : text.split(/\s+/).length;
+            const countDisplay = document.getElementById('wordCount');
+            countDisplay.innerText = `Сөз саны: ${words}`;
+            
+            if(words < 100 || words > 150) {
+                countDisplay.classList.add('text-red-400');
+                countDisplay.classList.remove('text-green-500');
+            } else {
+                countDisplay.classList.remove('text-red-400');
+                countDisplay.classList.add('text-green-500');
+            }
+        });
+
+        window.submitEssay = function() {
+            const text = document.getElementById('essayContent').value.trim();
+            const words = text === "" ? 0 : text.split(/\s+/).length;
+            const feedbackSection = document.getElementById('section-feedback');
+            const feedbackContent = document.getElementById('feedbackContent');
+            const scoreDisplay = document.getElementById('finalScore');
+            
+            let totalScore = 0;
+            let feedbackHTML = `<div class="bg-green-900/20 border border-green-800 p-4 rounded text-center"><p class="text-xl text-green-400 font-serif">Жұмыс қабылданды, ${studentName}.</p></div>`;
+            
+            if (words === 0) {
+                totalScore = 0;
+                feedbackHTML += `<p class="text-red-400 mt-4 text-center">Жауап жоқ.</p>`;
+            } else {
+                let contentScore = 0;
+                let argScore = 0;
+                let structureScore = 0;
+                let styleScore = 0;
+                let comments = [];
+
+                const lowerText = text.toLowerCase();
+                const commonKeywords = ['қамажай', 'бауыр', 'отбасы', 'үміт', 'өмір', 'апа'];
+                const topic1Keywords = ['қабен', 'құрбандық', 'бақыт', 'омар', 'темірбек', 'нәзилә', 'зая', 'сүйген'];
+                const topic2Keywords = ['қоғам', 'қазіргі', 'заман', 'өзімшіл', 'қорған', 'бүгін', 'интернет', 'қарым-қатынас'];
+
+                let hitCount = 0;
+                commonKeywords.forEach(k => { if(lowerText.includes(k)) hitCount++; });
+                
+                const targetKeywords = selectedTopic === 1 ? topic1Keywords : topic2Keywords;
+                targetKeywords.forEach(k => { if(lowerText.includes(k)) hitCount++; });
+
+                if (words < 50) {
+                    contentScore = 1;
+                    comments.push("Көлемі өте аз.");
+                } else if (hitCount >= 3) {
+                    contentScore = 3;
+                } else if (hitCount >= 1) {
+                    contentScore = 2;
+                    comments.push("Тақырып толық ашылмады.");
+                } else {
+                    contentScore = 1;
+                    comments.push("Тақырыптан ауытқу бар.");
+                }
+
+                const evidencePhrases = ['себебі', 'мысалы', 'өйткені', 'ойлаймын', 'көрінеді'];
+                let evidenceHits = 0;
+                evidencePhrases.forEach(p => { if(lowerText.includes(p)) evidenceHits++; });
+
+                if (words > 50 && evidenceHits >= 2) {
+                    argScore = 3;
+                } else if (words > 40 && evidenceHits >= 1) {
+                    argScore = 2;
+                } else {
+                    argScore = 1;
+                    comments.push("Дәлелдер аз.");
+                }
+
+                const paragraphs = text.split('\n').filter(p => p.trim().length > 0).length;
+                if (paragraphs >= 2 && words > 60) structureScore = 2;
+                else {
+                    structureScore = 1;
+                    comments.push("Мәтінді абзацтарға бөл.");
+                }
+
+                const sentences = text.split(/[.!?]+/).length;
+                const avgSentenceLength = words / sentences;
+                if (words > 80 && avgSentenceLength > 4) styleScore = 2;
+                else {
+                    styleScore = 1;
+                    comments.push("Сөйлемдерді түрлендір.");
+                }
+
+                totalScore = contentScore + argScore + structureScore + styleScore;
+
+                feedbackHTML += `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                            <span class="text-gray-400">Мазмұн</span>
+                            <span class="text-yellow-400 font-bold text-lg">${contentScore}/3</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                            <span class="text-gray-400">Дәлелдеу</span>
+                            <span class="text-yellow-400 font-bold text-lg">${argScore}/3</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                            <span class="text-gray-400">Құрылым</span>
+                            <span class="text-yellow-400 font-bold text-lg">${structureScore}/2</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                            <span class="text-gray-400">Стиль</span>
+                            <span class="text-yellow-400 font-bold text-lg">${styleScore}/2</span>
+                        </div>
+                    </div>
+                    <div class="bg-red-900/10 p-4 rounded border border-red-900/30">
+                        <h4 class="text-yellow-500 font-serif mb-2 uppercase text-xs tracking-wider">Пікір:</h4>
+                        ${comments.length > 0 ? `<ul class="list-disc ml-4 text-sm text-gray-300 space-y-1"><li>${comments.join('</li><li>')}</li></ul>` : '<p class="text-green-400 text-sm">Керемет! Кемшіліктер жоқ.</p>'}
+                    </div>
+                </div>`;
+            }
+
+            feedbackContent.innerHTML = feedbackHTML;
+            scoreDisplay.innerText = `${totalScore}/10`;
+
+            document.getElementById('section-writing').classList.add('hidden');
+            feedbackSection.classList.remove('hidden');
+            void feedbackSection.offsetWidth;
+            feedbackSection.classList.remove('opacity-0');
+            
+            feedbackSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
